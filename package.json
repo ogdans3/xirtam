@@ -1,0 +1,25 @@
+{
+  "name": "xirtam",
+  "version": "0.0.1",
+  "description": "Matrix stuff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ogdans3/xirtam.git"
+  },
+  "keywords": [
+    "Matrix"
+  ],
+  "author": "Gabriel Berthling-Hansen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ogdans3/xirtam/issues"
+  },
+  "homepage": "https://github.com/ogdans3/xirtam#readme",
+  "dependencies": {
+    "intern": "^3.2.0"
+  }
+}
