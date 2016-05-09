@@ -3,6 +3,8 @@ var Matrix = function(arr){
 //	this.cols = columns;
 //	this.colums = this.cols;
 	
+	if(arr.length == 1)
+		arr = arr[0]
 	if(arr[0].constructor === Array){
 		this.rows = arr.length;
 		this.cols = arr[0].length;
@@ -45,6 +47,7 @@ Matrix.prototype = {
 	get: function(row, column){
 		return this.getDataPoint(row, column);
 	},
+	
 	getDataPoint: function(row, column){
 		if(this.rows == 1 && this.data[0].constructor !== Array){
 			if(row > 1)
@@ -76,43 +79,12 @@ Matrix.prototype = {
 	},
 
 	add: function(mat2){
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(1)
-		console.log(this)
-		console.log(this)
-		console.log(this)
-		console.log(this)
-		console.log(this)
-		console.log(this)
-		console.log(this)
-		console.log(this)
-		console.log(this)
-		console.log(this)
-		console.log(1)
 		var mat1 = this;
 		var arr = [];
 		for(var i = 0; i < mat1.rows; i++){
 			arr.push(new Array(mat1.cols));
 			for(var q = 0; q < mat1.cols; q++){
 				arr[i][q] = mat1.getDataPoint(i, q) + mat2.getDataPoint(i, q);
-				console.log("test")
-				console.log(arr)
 			}
 		}
 		
