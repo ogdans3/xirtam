@@ -2,7 +2,7 @@ define(function (require) {
     var registerSuite = require('intern!object');
     var assert = require('intern/chai!assert');
     var Matrix = require("intern/dojo/node!path");
-    var Matrix = require("intern/dojo/node!./../../src/index.js");
+    var Matrix = require("intern/dojo/node!./../../src/xirtam.js");
 
     var matrices = {        
         a: null,
@@ -104,9 +104,14 @@ define(function (require) {
         },
 
         setDataPoint: function(){
-            assert.equal(new Matrix([[0,2,3],[5,1,2],[5,21,123]]), matrices.a.matrix.setDataPoint(0,0), 0);
-            assert.equal(new Matrix([[1,2,3],[5,1,2],[5,2,123]]), matrices.a.matrix.setDataPoint(2,2), 2);
-            assert.equal(new Matrix([[1,2,3],[5,1,4],[5,21,123]]), matrices.a.matrix.setDataPoint(1,2), 4);
+            console.log(1)
+            assert.deepEqual(new Matrix([[0,2,3],[5,1,2],[5,21,123]]), matrices.a.matrix.setDataPoint(0,0,0));
+            console.log(2)
+            console.log(matrices.a.matrix)
+            assert.deepEqual(new Matrix([[1,2,3],[5,1,2],[5,21,2]]), matrices.a.matrix.setDataPoint(2,2,2));
+            console.log(3)
+            assert.deepEqual(new Matrix([[1,2,3],[5,1,4],[5,21,123]]), matrices.a.matrix.setDataPoint(1,2,4));
+            console.log(4)
         },
 
         getRow: function(){
@@ -166,6 +171,13 @@ define(function (require) {
             assert.deepEqual(matrices.a.matrix.each(function(point){
                 return point+1;
             }), new Matrix([[2,3,4],[6,2,3],[6,22,124]]));
+        },
+
+        clone: function(){
+            //Check that the contents are the same
+            assert.deepEqual(matrices.a.matrix.copy(), matrices.a.matrix);
+            //Check that the reference is not the same, IE: its not the exact same object
+            assert.notEqual(matrices.a.matrix.copy(), matrices.a.matrix);
         },
 
         copy: function(){

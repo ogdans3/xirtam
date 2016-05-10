@@ -30,7 +30,9 @@ Matrix.prototype = {
 	colums: null,
 
 	setDataPoint: function(row, column, data){
-		this.data[row][column] = data;
+		var newMat = this.clone();
+		newMat.data[row][column] = data;
+		return newMat;
 	},
 	getRow: function(row){
 		if(row >= this.rows)
@@ -130,6 +132,10 @@ Matrix.prototype = {
 		return output;
 	},
 
+	clone: function(){
+		return this.copy();
+	},
+	
 	copy: function(){
 		return new Matrix(JSON.parse(JSON.stringify(this.data)));
 	},
