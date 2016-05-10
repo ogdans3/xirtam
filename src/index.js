@@ -29,16 +29,6 @@ Matrix.prototype = {
 	cols: null,
 	colums: null,
 
-	setData: function(arr){
-		if(!(arr.length === this.cols && arr[0].length === undefined) && (arr.length !== this.rows || ((!arr[0].length && this.cols === 1) && arr[0].length !== this.cols))){
-			throw new Error("Wrong dimensions on the data \n Expected: " + this.rows + ":" + this.cols + "\n" + "Actual: " + arr.length + ":" + arr[0].length);
-		}
-		if(arr[0].constructor === Array){		
-			this.data = arr;
-		}else
-			this.data = [arr];
-	},
-
 	setDataPoint: function(row, column, data){
 		this.data[row][column] = data;
 	},
@@ -52,11 +42,6 @@ Matrix.prototype = {
 	},
 	
 	getDataPoint: function(row, column){
-		if(this.rows == 1 && this.data[0].constructor !== Array){
-			if(row > 1)
-				throw new Error("Rows out of bounds");
-			return this.data[column]
-		}
 		return this.data[row][column]
 	},
 
@@ -69,10 +54,8 @@ Matrix.prototype = {
 			arr.push(new Array(mat1.cols));
 			for(var q = 0; q < mat1.cols; q++){
 				arr[i][q] = mat1.getDataPoint(i, q) - mat2.getDataPoint(i, q);
-//				output.setDataPoint(i, q, mat1.getDataPoint(i, q) - mat2.getDataPoint(i, q));
 			}
 		}
-//		var output = new Matrix(mat1.rows, mat1.cols);
 		var output = new Matrix(arr);
 		return output;
 	},
@@ -95,9 +78,7 @@ Matrix.prototype = {
 		return output;
 	},
 
-	//VERY VERY WRONG NAME!
-	//TODO
-	crossProduct: function(mat2){
+	elementWiseMultiplication: function(mat2){
 		var mat1 = this;
 		var arr = [];
 		for(var i = 0; i < mat1.rows; i++){
@@ -117,7 +98,6 @@ Matrix.prototype = {
 			arr.push(new Array(mat1.cols));
 			for(var q = 0; q < mat1.cols; q++){
 				arr[i][q] = mat1.getDataPoint(i, q) * factor;
-//				output.setDataPoint(i, q, mat1.getDataPoint(i, q) * factor);
 			}
 		}
 		var output = new Matrix(arr);
@@ -129,18 +109,10 @@ Matrix.prototype = {
 		if(mat.data.length !== arr.data.length || mat.data[0].length !== arr.data[0].length)
 			return false;
 		for(var i = 0; i < arr.data.length; i++){
-			if(arr.data[i].length == 1){	
-				if(arr.data[i].constructor === Array){
-					if(arr.data[i][0] !== mat.data[i][0])
-						return false;
-				}else if(arr.data[i] !== mat.data[i])
-					return false;
-			}else{
 				for(var q = 0; q < arr.data[0].length; q++){
 					if(arr.data[i][q] !== mat.data[i][q]){
 						return false;
 					}
-				}
 			}
 		}
 		return true;
@@ -148,8 +120,6 @@ Matrix.prototype = {
 
 	transpose: function(){
 		var a = JSON.parse(JSON.stringify(this.data));
-		if(a[0].constructor !== Array)
-			a = [a];
 		a = Object.keys(a[0]).map(
 	        function (c) { return a.map(function (r) { return r[c]; }); }
         );
@@ -157,13 +127,18 @@ Matrix.prototype = {
 		return output;
 	},
 
+	copy: function(){
+		return new Matrix(JSON.parse(JSON.stringify(this.data)));
+	},
+
 	each: function(func){
-		for(var i = 0; i < this.rows; i++){
-			for(var q = 0; q < this.cols; q++){
-				this.data[i][q] = func(this.data[i][q], i, q);
+		var self = this.copy();
+		for(var i = 0; i < self.rows; i++){
+			for(var q = 0; q < self.cols; q++){
+				self.data[i][q] = func(self.data[i][q], i, q);
 			}
 		}
-		return this;
+		return self;
 	},
 
 	foreach: function(func){
@@ -182,8 +157,8 @@ Matrix.prototype = {
 			mat2 = this;
 		}
 		if(mat1.cols !== mat2.rows){
-			console.log(mat1.rows, mat1.cols, "::::", mat2.rows, mat2.cols)
-			throw new Error("Non compatible matrixes");
+//			console.log(mat1.rows, mat1.cols, "::::", mat2.rows, mat2.cols)
+			throw new Error("Non compatible matrices");
 		}
 		var output = Array.apply(null, Array(mat1.rows)).map(function(){return new Array(mat2.cols)});
 		for(var x = 0; x < mat2.cols; x++){
@@ -194,8 +169,6 @@ Matrix.prototype = {
 					for(var y = 0; y < mat2.rows; y++){
 						sum += row[y]*mat2.data[y][x];
 					}
-				}else{
-					sum += row*mat2.data[0][x];
 				}
 				output[i][x] = (sum);
 			}

@@ -45,11 +45,25 @@ define(function (require) {
         add: function(){
             var a_b_add_Expected = new Matrix([[3,7,16], [13,3,48], [17,82,246]]);
             assert.deepEqual(matrices.a.matrix.add(matrices.b.matrix).data, a_b_add_Expected.data, matrices.a.matrix.add(matrices.b.matrix).data);
+            
+            try{
+                matrices.c.matrix.add(matrices.d.matrix);
+                assert.equal(true, false);
+            }catch(e){
+                assert.equal(true, true);
+            }
         },
 
         subtract: function(){
             var a_b_add_Expected = new Matrix([[-1, -3, -10], [-3, -1, -44], [-7, -40, 0]]);
             assert.deepEqual(matrices.a.matrix.subtract(matrices.b.matrix), a_b_add_Expected);
+
+            try{
+                matrices.c.matrix.subtract(matrices.d.matrix);
+                assert.equal(true, false);
+            }catch(e){
+                assert.equal(true, true);
+            }
         },
 
         scalarMultiply: function(){
@@ -59,11 +73,19 @@ define(function (require) {
             assert.deepEqual(matrices.d.matrix.scalarMultiply(0), new Matrix([[0],[0],[0], [0]]));
         },
 
-        crossProduct: function(){
-
+        elementWiseMultiplication: function(){
+            assert.deepEqual(matrices.a.matrix.elementWiseMultiplication(matrices.b.matrix), new Matrix([[2,10,39],[40,2,92],[60,1281,15129]]));            
         },
 
         multiply: function(){
+            assert.deepEqual(matrices.a.matrix.multiply(matrices.b.matrix), new Matrix([[54,192,474],[42,149,357],[1654,7570,16160]]));
+            assert.deepEqual(matrices.a.matrix.multiply(matrices.b.matrix, true), new Matrix([[92,282,1615],[248,984,5686],[932,2668,15287]]));
+            try{
+                matrices.c.matrix.multiply(matrices.d.matrix);
+                assert.equal(true, false);
+            }catch(e){
+                assert.equal(true, true);
+            }
         },
 
         /* Matrix data tests */
@@ -79,6 +101,12 @@ define(function (require) {
             assert.equal(matrices.d.matrix.getDataPoint(0,0), 3);
             assert.equal(matrices.d.matrix.getDataPoint(1,0), 5);
             assert.equal(matrices.d.matrix.getDataPoint(3,0), 123);
+        },
+
+        setDataPoint: function(){
+            assert.equal(new Matrix([[0,2,3],[5,1,2],[5,21,123]]), matrices.a.matrix.setDataPoint(0,0), 0);
+            assert.equal(new Matrix([[1,2,3],[5,1,2],[5,2,123]]), matrices.a.matrix.setDataPoint(2,2), 2);
+            assert.equal(new Matrix([[1,2,3],[5,1,4],[5,21,123]]), matrices.a.matrix.setDataPoint(1,2), 4);
         },
 
         getRow: function(){
@@ -119,6 +147,57 @@ define(function (require) {
             assert.deepEqual(matrices.d.matrix.toArray(), matrices.d.arr);
         },
 
+        foreach: function(){
+            var count = 0;
+            var sum = 0;
+            matrices.a.matrix.foreach(function(point){
+                count ++;
+                sum += point;
+            });
+
+            assert.equal(count, 9);
+            assert.equal(sum, 163);
+        },
+
+        each: function(){
+            assert.deepEqual(matrices.a.matrix.each(function(point){
+                return point*2;
+            }), new Matrix([[2,4,6],[10,2,4],[10,42,246]]));
+            assert.deepEqual(matrices.a.matrix.each(function(point){
+                return point+1;
+            }), new Matrix([[2,3,4],[6,2,3],[6,22,124]]));
+        },
+
+        copy: function(){
+            //Check that the contents are the same
+            assert.deepEqual(matrices.a.matrix.copy(), matrices.a.matrix);
+            //Check that the reference is not the same, IE: its not the exact same object
+            assert.notEqual(matrices.a.matrix.copy(), matrices.a.matrix);
+        },
+
+        /* Left over matrix tests */
+        equals: function(){
+            assert.equal(true, matrices.a.matrix.equals(new Matrix(matrices.a.arr)));
+            assert.equal(true, matrices.b.matrix.equals(new Matrix(matrices.b.arr)));
+            assert.equal(true, matrices.c.matrix.equals(new Matrix(matrices.c.arr)));
+            assert.equal(true, matrices.d.matrix.equals(new Matrix(matrices.d.arr)));
+
+            assert.equal(false, matrices.a.matrix.equals(new Matrix(matrices.b.arr)));
+            assert.equal(false, matrices.b.matrix.equals(new Matrix(matrices.c.arr)));
+            assert.equal(false, matrices.c.matrix.equals(new Matrix(matrices.a.arr)));
+            assert.equal(false, matrices.d.matrix.equals(new Matrix(matrices.a.arr)));
+        },
+
+        nicePrint: function(){
+            console.temp = console.log;
+            //Amazingly ugly way to ensure that it actually logs what it is supposed to
+            console.log = function(msg){
+                assert.notEqual(msg, "PBH");
+                assert.equal(msg, matrices.a.arr.join("\n"));
+                console.log = console.temp;
+            }
+            matrices.a.matrix.nicePrint();
+        },
 
     });
 });
