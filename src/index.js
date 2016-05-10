@@ -11,6 +11,7 @@ var Matrix = function(arr){
 	}else{
 		this.rows = 1;
 		this.cols = arr.length;
+		arr = [arr];
 	}
 	this.columns = this.cols;
 	this.data = arr;
@@ -42,6 +43,8 @@ Matrix.prototype = {
 		this.data[row][column] = data;
 	},
 	getRow: function(row){
+		if(row >= this.rows)
+			return null
 		return this.data[row];
 	},
 	get: function(row, column){
@@ -109,12 +112,15 @@ Matrix.prototype = {
 
 	scalarMultiply: function(factor){
 		var mat1 = this;
-		var output = new Matrix(mat1.rows, mat1.cols);
+		var arr = [];
 		for(var i = 0; i < mat1.rows; i++){
+			arr.push(new Array(mat1.cols));
 			for(var q = 0; q < mat1.cols; q++){
-				output.setDataPoint(i, q, mat1.getDataPoint(i, q) * factor);
+				arr[i][q] = mat1.getDataPoint(i, q) * factor;
+//				output.setDataPoint(i, q, mat1.getDataPoint(i, q) * factor);
 			}
 		}
+		var output = new Matrix(arr);
 		return output;
 	},
 

@@ -4,7 +4,7 @@
   "description": "Matrix stuff",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node node_modules/intern/bin/intern-client.js config=tests/intern.js"
   },
   "repository": {
     "type": "git",
