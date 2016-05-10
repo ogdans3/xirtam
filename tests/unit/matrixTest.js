@@ -104,14 +104,9 @@ define(function (require) {
         },
 
         setDataPoint: function(){
-            console.log(1)
             assert.deepEqual(new Matrix([[0,2,3],[5,1,2],[5,21,123]]), matrices.a.matrix.setDataPoint(0,0,0));
-            console.log(2)
-            console.log(matrices.a.matrix)
             assert.deepEqual(new Matrix([[1,2,3],[5,1,2],[5,21,2]]), matrices.a.matrix.setDataPoint(2,2,2));
-            console.log(3)
             assert.deepEqual(new Matrix([[1,2,3],[5,1,4],[5,21,123]]), matrices.a.matrix.setDataPoint(1,2,4));
-            console.log(4)
         },
 
         getRow: function(){
