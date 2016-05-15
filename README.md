@@ -2,7 +2,7 @@
 
 ## Installation
 
-$ ```npm install xirtam```
+```npm install xirtam```
 
 ## Usage
 Most of the methods in Xirtam returns a new matrix object and allows for methods to be stacked after one another.
