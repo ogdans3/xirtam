@@ -1,8 +1,4 @@
 var Matrix = function(arr){
-//	this.rows = rows;
-//	this.cols = columns;
-//	this.colums = this.cols;
-	
 	if(arr.length == 1)
 		arr = arr[0]
 	if(arr[0].constructor === Array){
@@ -15,12 +11,6 @@ var Matrix = function(arr){
 	}
 	this.columns = this.cols;
 	this.data = arr;
-
-/*	var matrix = [];
-	for(var i=0; i<rows; i++) {
-	    matrix[i] = new Array(columns);
-	}
-	this.data = matrix;*/
 }
 
 Matrix.prototype = {
