@@ -206,5 +206,16 @@ define(function (require) {
             matrices.a.matrix.nicePrint();
         },
 
+        prettyPrint: function(){
+            console.temp = console.log;
+            //Amazingly ugly way to ensure that it actually logs what it is supposed to
+            console.log = function(msg){
+                assert.notEqual(msg, "PBH");
+                assert.equal(msg, matrices.a.arr.join("\n"));
+                console.log = console.temp;
+            }
+            matrices.a.matrix.prettyPrint();
+        },
+
     });
 });

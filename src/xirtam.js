@@ -187,6 +187,10 @@ Matrix.prototype = {
 	},
 
 	nicePrint: function(){
+		this.prettyPrint();
+	},
+
+	prettyPrint: function(){
 		console.log(this.data.join("\n"), "\n")
 	}
 }
