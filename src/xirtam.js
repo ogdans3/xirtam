@@ -99,13 +99,13 @@ Matrix.prototype = {
 		return output;
 	},
 
-	equals: function(arr){
+	equals: function(mat2){
 		var mat = this;
-		if(mat.data.length !== arr.data.length || mat.data[0].length !== arr.data[0].length)
+		if(mat.data.length !== mat2.data.length || mat.data[0].length !== mat2.data[0].length)
 			return false;
-		for(var i = 0; i < arr.data.length; i++){
-				for(var q = 0; q < arr.data[0].length; q++){
-					if(arr.data[i][q] !== mat.data[i][q]){
+		for(var i = 0; i < mat2.data.length; i++){
+				for(var q = 0; q < mat2.data[0].length; q++){
+					if(mat2.data[i][q] !== mat.data[i][q]){
 						return false;
 					}
 			}
