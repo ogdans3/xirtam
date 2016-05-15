@@ -1,6 +1,6 @@
 {
   "name": "xirtam",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Matrix stuff",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/ogdans3/xirtam.git"
   },
   "keywords": [
-    "Matrix"
+    "Matrix", "Matrices", "operations", "utilities", "scale", "multiply", "add", "subtract"
   ],
   "author": "Gabriel Berthling-Hansen",
   "license": "MIT",
