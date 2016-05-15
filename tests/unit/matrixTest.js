@@ -200,7 +200,11 @@ define(function (require) {
             //Amazingly ugly way to ensure that it actually logs what it is supposed to
             console.log = function(msg){
                 assert.notEqual(msg, "PBH");
-                assert.equal(msg, matrices.a.arr.join("\n"));
+                var arr = [];
+                matrices.a.arr.forEach(function(element, index){
+                    arr[index] = element + " ";
+                });
+                assert.equal(msg, arr.join("\n"));
                 console.log = console.temp;
             }
             matrices.a.matrix.nicePrint();
@@ -211,7 +215,11 @@ define(function (require) {
             //Amazingly ugly way to ensure that it actually logs what it is supposed to
             console.log = function(msg){
                 assert.notEqual(msg, "PBH");
-                assert.equal(msg, matrices.a.arr.join("\n"));
+                var arr = [];
+                matrices.a.arr.forEach(function(element, index){
+                    arr[index] = element + " ";
+                });
+                assert.equal(msg, arr.join("\n"));
                 console.log = console.temp;
             }
             matrices.a.matrix.prettyPrint();
