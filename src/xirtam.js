@@ -193,7 +193,11 @@ Matrix.prototype = {
 	prettyPrint: function(){
 		var arr = [];
 		this.data.forEach(function(element, index){
-			arr[index] = element + " ";
+			var tmpArr = [];
+			element.forEach(function(element2, index2){			
+				tmpArr[index2] = " " + element2;
+			});
+			arr[index] = tmpArr;
 		})
 		console.log(arr.join("\n"), "\n")
 	}

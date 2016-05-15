@@ -202,7 +202,11 @@ define(function (require) {
                 assert.notEqual(msg, "PBH");
                 var arr = [];
                 matrices.a.arr.forEach(function(element, index){
-                    arr[index] = element + " ";
+                    var tmpArr = [];
+                    element.forEach(function(element2, index2){         
+                        tmpArr[index2] = " " + element2;
+                    });
+                    arr[index] = tmpArr;
                 });
                 assert.equal(msg, arr.join("\n"));
                 console.log = console.temp;
@@ -217,7 +221,11 @@ define(function (require) {
                 assert.notEqual(msg, "PBH");
                 var arr = [];
                 matrices.a.arr.forEach(function(element, index){
-                    arr[index] = element + " ";
+                    var tmpArr = [];
+                    element.forEach(function(element2, index2){         
+                        tmpArr[index2] = " " + element2;
+                    });
+                    arr[index] = tmpArr;
                 });
                 assert.equal(msg, arr.join("\n"));
                 console.log = console.temp;
