@@ -1,6 +1,4 @@
 var Matrix = function(arr){
-	if(arr.length == 1)
-		arr = arr[0]
 	if(arr[0].constructor === Array){
 		this.rows = arr.length;
 		this.cols = arr[0].length;
