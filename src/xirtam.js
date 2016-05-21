@@ -18,9 +18,8 @@ Matrix.prototype = {
 	colums: null,
 
 	setDataPoint: function(row, column, data){
-		var newMat = this.clone();
-		newMat.data[row][column] = data;
-		return newMat;
+		this.data[row][column] = data;
+		return this;
 	},
 	getRow: function(row){
 		if(row >= this.rows)
